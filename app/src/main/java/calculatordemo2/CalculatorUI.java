@@ -23,7 +23,6 @@ public class CalculatorUI implements ActionListener {
 	private final JButton jButtons[], add, sub, mult, div, equal, cancel, sqrRt, sqr, inverse, cos, sin, tan;
 	private final String[] buttonValue = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 	private final Calculator calc;
-
 	/**
 	 * The main top level GUI of the calculator and it's frame, button, and text area for # display
 	 */
@@ -67,17 +66,20 @@ public class CalculatorUI implements ActionListener {
 			panel.add(jButtons[i]);
 			jButtons[i].addActionListener(this);
 		}
-		// add operand buttons
+		// add operand buttons 
 		panel.add(add);
 		panel.add(sub);
 		panel.add(mult);
 		panel.add(div);
+        // add common function buttons
 		panel.add(sqr);
 		panel.add(sqrRt);
 		panel.add(inverse);
+        // add trig function buttons
 		panel.add(cos);
 		panel.add(sin);
 		panel.add(tan);
+        // add equal and cancel buttons
 		panel.add(equal);
 		panel.add(cancel);
 		// add event listeners
