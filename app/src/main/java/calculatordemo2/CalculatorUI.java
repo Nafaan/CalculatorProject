@@ -19,7 +19,7 @@ import javax.swing.JTextArea;
 public class CalculatorUI implements ActionListener {
 	private final JFrame frame;
 	private final JPanel panel;
-	private final JTextArea text;
+	public final JTextArea text;
 	private final JButton jButtons[], add, sub, mult, div, equal, cancel, sqrRt, sqr, inverse, cos, sin, tan;
 	private final String[] buttonValue = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 	private final Calculator calc;
@@ -106,7 +106,7 @@ public class CalculatorUI implements ActionListener {
 		equal.addActionListener(this);
 		cancel.addActionListener(this);
     }
-    
+
 	/**
 	 * Event handling implementation for Calculator button pressing
 	 * @param e
