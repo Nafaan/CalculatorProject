@@ -40,31 +40,29 @@ class CalculatorUITest {
 
     @Test
     public void testReader() throws Exception {
-        CalculatorUI calc = new CalculatorUI();
-        calc.init();
+        classUnderTest.init();
 
         Field field = CalculatorUI.class.getDeclaredField("text");
         field.setAccessible(true);
 
-        JTextArea text = (JTextArea) field.get(calc);
+        JTextArea text = (JTextArea) field.get(classUnderTest);
         text.setText("930.02");
-        Double result = calc.reader();
+        Double result = classUnderTest.reader();
 
         assertEquals(930.02, result);
     }
 
     @Test
     public void testWriter() throws Exception {
-        CalculatorUI calc = new CalculatorUI();
-        calc.init();
-        calc.writer(111.11);
+        classUnderTest.init();
+        classUnderTest.writer(111.11);
 
         Field field = CalculatorUI.class.getDeclaredField("text");
         field.setAccessible(true);
         
-        JTextArea text = (JTextArea) field.get(calc);
+        JTextArea text = (JTextArea) field.get(classUnderTest);
         String result = text.getText();
-        
+
         assertEquals("111.11", result);
     }
 }
