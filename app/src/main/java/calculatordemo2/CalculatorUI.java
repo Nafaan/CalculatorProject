@@ -20,7 +20,7 @@ public class CalculatorUI implements ActionListener {
 	private final JFrame frame;
 	private final JPanel panel;
 	private final JTextArea text;
-	private final JButton jButtons[], add, sub, mult, div, equal, cancel, sqrRt, sqr, inverse, cos, sin, tan;
+	private final JButton jButtons[], add, sub, mult, div, equal, cancel, sqrRt, sqr, inverse, cos, sin, tan, invCos, invSin, invTan;
 	private final String[] buttonValue = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 	private final Calculator calc;
 	/**
@@ -48,6 +48,9 @@ public class CalculatorUI implements ActionListener {
 		cos = new JButton("Cos");
 		sin = new JButton("Sin");
 		tan = new JButton("Tan");
+        invCos = new JButton("Cos-1");
+        invSin = new JButton("Sin-1");
+        invTan = new JButton("Tan-1");
 		cancel = new JButton("C");
 
 		calc = new Calculator();
@@ -87,6 +90,9 @@ public class CalculatorUI implements ActionListener {
 		panel.add(cos);
 		panel.add(sin);
 		panel.add(tan);
+        panel.add(invCos);
+        panel.add(invSin);
+        panel.add(invTan);
         // add equal and cancel buttons
 		panel.add(equal);
 		panel.add(cancel);
@@ -103,6 +109,9 @@ public class CalculatorUI implements ActionListener {
 		cos.addActionListener(this);
 		sin.addActionListener(this);
 		tan.addActionListener(this);
+        invCos.addActionListener(this);
+        invSin.addActionListener(this);
+        invTan.addActionListener(this);
 		equal.addActionListener(this);
 		cancel.addActionListener(this);
     }
@@ -154,9 +163,20 @@ public class CalculatorUI implements ActionListener {
 			writer(calc.calcScience(Calculator.singleOperator.sin,
 					reader()));
 		}
-
 		if (source == tan) {
 			writer(calc.calcScience(Calculator.singleOperator.tan,
+					reader()));
+		}
+        if (source == invCos) {
+			writer(calc.calcScience(Calculator.singleOperator.invCos,
+					reader()));
+		}
+        if (source == invSin) {
+			writer(calc.calcScience(Calculator.singleOperator.invSin,
+					reader()));
+		}
+        if (source == invTan) {
+			writer(calc.calcScience(Calculator.singleOperator.invTan,
 					reader()));
 		}
 		if (source == equal) {

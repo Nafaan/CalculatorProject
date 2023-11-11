@@ -171,4 +171,38 @@ class CalculatorUITest {
         classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "="));
         assertEquals("7.0", text.getText());
     }
+
+    @Test
+    public void testInvSin() throws Exception {
+        JTextArea text = accessPrivateText();
+        Field field = CalculatorUI.class.getDeclaredField("invSin");
+        field.setAccessible(true);
+        JButton action = (JButton) field.get(classUnderTest);
+
+        text.setText("0");
+        classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "Sin-1"));
+        assertEquals("0.0", text.getText());
+    }
+    @Test
+    public void testInvCos() throws Exception {
+        JTextArea text = accessPrivateText();
+        Field field = CalculatorUI.class.getDeclaredField("invCos");
+        field.setAccessible(true);
+        JButton action = (JButton) field.get(classUnderTest);
+
+        text.setText("1");
+        classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "Cos-1"));
+        assertEquals("0.0", text.getText());
+    }
+    @Test
+    public void testInvTan() throws Exception {
+        JTextArea text = accessPrivateText();
+        Field field = CalculatorUI.class.getDeclaredField("invTan");
+        field.setAccessible(true);
+        JButton action = (JButton) field.get(classUnderTest);
+
+        text.setText("0");
+        classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "Tan-1"));
+        assertEquals("0.0", text.getText());
+    }
 }
