@@ -69,6 +69,12 @@ class CalculatorTest {
         field.setAccessible(true);
         field.set(classUnderTest, val);
     }
+    // Helper method to get private fields
+    private Object getPrivateField(String fieldName) throws Exception {
+        Field field = Calculator.class.getDeclaredField(fieldName);
+        field.setAccessible(true);
+        return field.get(classUnderTest);
+    }
     // Helper method to access private method
     private double accessPrivateMethod(String methodName) throws Exception {
         Method method = Calculator.class.getDeclaredMethod(methodName);
@@ -155,7 +161,7 @@ class CalculatorTest {
     }
 
     @Test
-    public void testTwoAddSub() throws Exception {
+    public void testTwoOpAddSub() throws Exception {
         setPrivateField("num1", 9.0);
         setPrivateField("num2", 3.0);
         setPrivateField("mode", Calculator.twoOperator.add);
@@ -169,5 +175,33 @@ class CalculatorTest {
         double result = accessPrivateMethod("twoOpOperations");
 
         assertEquals(10.0, result);
+    }
+
+    @Test
+    public void testTwoOpCallerNormal() throws Exception {
+        setPrivateField("num1", 9.0);
+        setPrivateField("num2", 0.0);
+        setPrivateField("mode", Calculator.twoOperator.normal);
+
+        double result = classUnderTest.twoOpCaller(Calculator.twoOperator.add, 2.0);
+
+        assertEquals(Double.NaN, result);
+        assertEquals(2.0, getPrivateField("num1"));
+        assertEquals(0.0, getPrivateField("num2"));
+        assertEquals(Calculator.twoOperator.add, getPrivateField("mode"));
+    }
+
+    @Test
+    public void testTwoOpCallerNotNormal() throws Exception {
+        setPrivateField("num1", 9.0);
+        setPrivateField("num2", 3.0);
+        setPrivateField("mode", Calculator.twoOperator.add);
+
+        double result = classUnderTest.twoOpCaller(Calculator.twoOperator.subtract, 2.0);
+
+        assertEquals(getPrivateField("num1"), result);
+        assertEquals(11.0, getPrivateField("num1"));
+        assertEquals(2.0, getPrivateField("num2"));
+        assertEquals(Calculator.twoOperator.subtract, getPrivateField("mode"));
     }
 }
