@@ -4,11 +4,13 @@
 package calculatordemo2;
 
 import javax.swing.JTextArea;
+import javax.swing.JButton;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
 import java.lang.reflect.Field;  // This brings in the Field feature of Java Reflection
+import java.awt.event.ActionEvent;
 
 class CalculatorUITest {
 
@@ -37,5 +39,170 @@ class CalculatorUITest {
     void appPanelIsCreated() {
         assertNotNull(classUnderTest, "app should have a panel object");
     }
-}
 
+    // Helper method to access private field "text"
+    private JTextArea accessPrivateText() throws Exception {
+        Field field = CalculatorUI.class.getDeclaredField("text");
+        field.setAccessible(true);
+        JTextArea text = (JTextArea) field.get(classUnderTest);
+
+        return text;
+    }
+
+    @Test
+    public void testReader() throws Exception {
+        classUnderTest.init();
+
+        JTextArea text = accessPrivateText();
+        text.setText("930.02");
+        Double result = classUnderTest.reader();
+
+        assertEquals(930.02, result);
+    }
+
+    @Test
+    public void testWriter() throws Exception {
+        classUnderTest.init();
+        classUnderTest.writer(111.11);
+
+        JTextArea text = accessPrivateText();
+        String result = text.getText();
+
+        assertEquals("111.11", result);
+    }
+
+    @Test
+    public void testSquareRoot() throws Exception {
+        JTextArea text = accessPrivateText();
+        Field field = CalculatorUI.class.getDeclaredField("sqrRt");
+        field.setAccessible(true);
+        JButton action = (JButton) field.get(classUnderTest);
+
+        text.setText("9");
+        classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "√"));
+        assertEquals("3.0", text.getText());
+    }
+
+    @Test
+    public void testSquare() throws Exception {
+        JTextArea text = accessPrivateText();
+        Field field = CalculatorUI.class.getDeclaredField("sqr");
+        field.setAccessible(true);
+        JButton action = (JButton) field.get(classUnderTest);
+
+        text.setText("3");
+        classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "x*x"));
+        assertEquals("9.0", text.getText());
+    }
+
+    @Test
+    public void testInverse() throws Exception {
+        JTextArea text = accessPrivateText();
+        Field field = CalculatorUI.class.getDeclaredField("inverse");
+        field.setAccessible(true);
+        JButton action = (JButton) field.get(classUnderTest);
+
+        text.setText("5");
+        classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "1/x"));
+        assertEquals("0.2", text.getText());
+    }
+
+    @Test
+    public void testCancel() throws Exception {
+        JTextArea text = accessPrivateText();
+        Field field = CalculatorUI.class.getDeclaredField("cancel");
+        field.setAccessible(true);
+        JButton action = (JButton) field.get(classUnderTest);
+
+        text.setText("9");
+        classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "C"));
+        assertEquals("", text.getText());
+    }
+
+    @Test
+    public void testSin() throws Exception {
+        JTextArea text = accessPrivateText();
+        Field field = CalculatorUI.class.getDeclaredField("sin");
+        field.setAccessible(true);
+        JButton action = (JButton) field.get(classUnderTest);
+
+        text.setText("0");
+        classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "Sin"));
+        assertEquals("0.0", text.getText());
+    }
+
+    @Test
+    public void testCos() throws Exception {
+        JTextArea text = accessPrivateText();
+        Field field = CalculatorUI.class.getDeclaredField("cos");
+        field.setAccessible(true);
+        JButton action = (JButton) field.get(classUnderTest);
+
+        text.setText("0");
+        classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "Cos"));
+        assertEquals("1.0", text.getText());
+    }
+
+    @Test
+    public void testTan() throws Exception {
+        JTextArea text = accessPrivateText();
+        Field field = CalculatorUI.class.getDeclaredField("tan");
+        field.setAccessible(true);
+        JButton action = (JButton) field.get(classUnderTest);
+
+        text.setText("0");
+        classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "Tan"));
+        assertEquals("0.0", text.getText());
+    }
+
+    @Test
+    public void testEqual() throws Exception {
+        JTextArea text = accessPrivateText();
+        Field field = CalculatorUI.class.getDeclaredField("equal");
+        field.setAccessible(true);
+        JButton action = (JButton) field.get(classUnderTest);
+       
+        Field calcField = CalculatorUI.class.getDeclaredField("calc");
+        calcField.setAccessible(true);
+        Calculator calc = (Calculator) calcField.get(classUnderTest);
+
+        text.setText("5");
+        calc.twoOpCaller(Calculator.twoOperator.add, 2.0);
+        classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "="));
+        assertEquals("7.0", text.getText());
+    }
+
+    @Test
+    public void testInvSin() throws Exception {
+        JTextArea text = accessPrivateText();
+        Field field = CalculatorUI.class.getDeclaredField("invSin");
+        field.setAccessible(true);
+        JButton action = (JButton) field.get(classUnderTest);
+
+        text.setText("0");
+        classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "Sin-1"));
+        assertEquals("0.0", text.getText());
+    }
+    @Test
+    public void testInvCos() throws Exception {
+        JTextArea text = accessPrivateText();
+        Field field = CalculatorUI.class.getDeclaredField("invCos");
+        field.setAccessible(true);
+        JButton action = (JButton) field.get(classUnderTest);
+
+        text.setText("1");
+        classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "Cos-1"));
+        assertEquals("0.0", text.getText());
+    }
+    @Test
+    public void testInvTan() throws Exception {
+        JTextArea text = accessPrivateText();
+        Field field = CalculatorUI.class.getDeclaredField("invTan");
+        field.setAccessible(true);
+        JButton action = (JButton) field.get(classUnderTest);
+
+        text.setText("0");
+        classUnderTest.actionPerformed(new ActionEvent(action, ActionEvent.ACTION_PERFORMED, "Tan-1"));
+        assertEquals("0.0", text.getText());
+    }
+}

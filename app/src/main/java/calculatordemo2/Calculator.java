@@ -15,7 +15,7 @@ public class Calculator{
 	}
 
 	public enum singleOperator {
-		square, squareRoot, oneDevidedBy, cos, sin, tan
+		square, squareRoot, oneDevidedBy, cos, sin, tan, invCos, invSin, invTan
 	}
 
 	private Double num1, num2;
@@ -112,6 +112,15 @@ public class Calculator{
 		}
 		if (newMode == singleOperator.tan) {
 			return Math.tan(num);
+		}
+        if (newMode == singleOperator.invCos) {
+			return Math.acos(num);
+		}
+        if (newMode == singleOperator.invSin) {
+			return Math.asin(num);
+		}
+        if (newMode == singleOperator.invTan) {
+			return Math.atan(num);
 		}
 		// never reach
 		throw new Error();
