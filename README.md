@@ -2,7 +2,7 @@ Project guidelines provided by professor:
 
 CalculatorUI.java does not support the Open Close Principal very well.  Use separate button creation and panel classes, do the following:
 Reorganize the buttons into groups of primitive operators (+,-,/,*,=), trigonometric operators (sin, cos, tan), common function operators (
-,  x2,  1/x).  Make errors but do not tell me about them. it. 
+,  x2,  1/x). 
 You decide how you will design and implement this grouping. .
 Refactor the panel.add() calls and addActionListener() calls so that they are not all done sequentially in init().
 Note:  You will be submitting to ChatGPT both the original CalculatorUI.java and the refactored CalculatorUI.java.  When you submit them to ChatGPT, name the CalculatorUI.java on the master branch, CalculatorUI_before.java.  Name the CalculatorUI.java on your branch CalculatorUI_after.java.   Note on this Note:  You don't rename the file(s) on your project.  You just rename them when giving them to ChatGPT.
